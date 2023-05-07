@@ -29,6 +29,7 @@ class Pilha{
         void pop();
         bool isEmpty();
         int size();
+        void clear();
         void print();
         /************************************************** FINAL METODOS */
 };

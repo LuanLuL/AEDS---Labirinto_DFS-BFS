@@ -81,10 +81,17 @@ int Pilha::size(){
     return count;
 }
 
+void Pilha::clear(){
+    while(!(isEmpty())){
+        pop();
+    }
+}
+
 void Pilha::print(){
     No* aux = this->topo;
+    cout << "---------- PILHA ----------\n\n";
     if(isEmpty()){
-        cout << "-----> PILHA VAZIA!";
+        cout << "-----> PILHA VAZIA!\n\n";
     }
     else{
         cout << "\n\n";
@@ -93,5 +100,6 @@ void Pilha::print(){
             aux = aux->getNext();
         }
     }
+    cout << "---------- FIM PILHA ----------\n\n";
 }
 /******************************************************************************************** FINAL METODOS */

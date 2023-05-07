@@ -46,11 +46,11 @@ class Maze{
         void create(string data);
         void print();
         void select(string data);
-        int breadhtFirstSearch(string data);
-        int checkNextPath(short int row, short int column);
+        void breadhtFirstSearch(string data);
+        void checkNextPathBFS(short int row, short int column);
+        bool checkNextPathDFS(short int row, short int column, short int *iP, short int *jP, string data);
+        void depthFirstSearch(string data);
         /************************************************************** FINAL METODOS */
 };
 
 #endif
-
-

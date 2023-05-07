@@ -8,7 +8,7 @@ int main(){
     int qntMatrix = lab.start("dataset/input.data");
     for(int i = 1;i<=qntMatrix;i++){
         lab.select("dataset/matriz"+ to_string(i) +".data");
-        lab.breadhtFirstSearch("dataset/matriz"+ to_string(i) +".data");
+        lab.depthFirstSearch("dataset/matriz"+ to_string(i) +".data");
         lab.print();
         break;
     }

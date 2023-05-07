@@ -127,7 +127,7 @@ int Maze::start(string data){
         fstream inFile;
         inFile.open(data.c_str());
         if(!inFile){
-            throw "../Inventario::start(string data) ---> Não foi possível abrir o arquivo de entrada";
+            throw "../Maze::start(string data) ---> Não foi possível abrir o arquivo de entrada";
         }
         string numberStr;
         int aux = 0, aux2 = 0, numberInt = 0, limite = 0, i = 1, numMatrizes = 0;
@@ -190,7 +190,7 @@ void Maze::create(string name){
     try{
         ofstream outFile (name.c_str()); 
         if(!outFile){
-            throw "../Inventario::insertMatriz(string name) ----> Não foi possível abrir o arquivo de saída";
+            throw "../Maze::create(string name) ----> Não foi possível abrir o arquivo de saída";
         }
         outFile << this->tamanhoLinha << " " << this->tamanhoColuna << endl;
         this->matriz[1][1] = 1;
@@ -222,7 +222,7 @@ void Maze::select(string data){
     fstream inFile;
         inFile.open(data.c_str());
         if(!inFile){
-            throw "../Inventario::start(string data) ---> Não foi possível abrir o arquivo de entrada";
+            throw "../Maze::select(string data) ---> Não foi possível abrir o arquivo de entrada";
         }
         string numberStr;
         int aux = 0, aux2 = 0, numberInt = 0, limite = 0;
@@ -252,10 +252,8 @@ void Maze::select(string data){
         inFile.close();
 }
 
-int Maze::breadhtFirstSearch(string data){
-    Fila fila;
+void Maze::breadhtFirstSearch(string data){
     short int i = 1, j = 1;
-    No noAux;
     on = true;
     this->fila.insert(i, j);
     while(this->on){  
@@ -269,14 +267,14 @@ int Maze::breadhtFirstSearch(string data){
             this->fila.insert(i, j);
             this->fila.print();
         }
-        checkNextPath(i+1, j);          // BAIXO
-        checkNextPath(i+1, j+1);        // DIAGONAL INFERIOR DIREITA
-        checkNextPath(i, j+1);          // DIREITA
-        checkNextPath(i-1, j+1);        // DIAGONAL SUPERIOR DIREITA
-        checkNextPath(i-1, j);          // CIMA         
-        checkNextPath(i-1, j-1);        // DIAGONAL SUPERIOR ESQUERDA         
-        checkNextPath(i, j-1);          // ESQUERDA         
-        checkNextPath(i+1, j-1);        // DIAGONAL INFERIOR ESQUERDA        
+        checkNextPathBFS(i+1, j);          // BAIXO
+        checkNextPathBFS(i+1, j+1);        // DIAGONAL INFERIOR DIREITA
+        checkNextPathBFS(i, j+1);          // DIREITA
+        checkNextPathBFS(i-1, j+1);        // DIAGONAL SUPERIOR DIREITA
+        checkNextPathBFS(i-1, j);          // CIMA         
+        checkNextPathBFS(i-1, j-1);        // DIAGONAL SUPERIOR ESQUERDA         
+        checkNextPathBFS(i, j-1);          // ESQUERDA         
+        checkNextPathBFS(i+1, j-1);        // DIAGONAL INFERIOR ESQUERDA        
         this->fila.remove();
         this->fila.print(); 
         this->matriz[i][j] = 0;
@@ -284,10 +282,9 @@ int Maze::breadhtFirstSearch(string data){
         j = this->fila.getStart()->getJ();
         print();
     }
-    return 0;
 }
 
-int Maze::checkNextPath(short int row, short int column){
+void Maze::checkNextPathBFS(short int row, short int column){
     if(this->matriz[row][column] == 1){
         this->fila.insert(row, column);
         this->fila.print();
@@ -299,7 +296,113 @@ int Maze::checkNextPath(short int row, short int column){
     else if(this->matriz[row][column] == -3){
         this->on = false;
     }
-    return 0;
 }
 
+void Maze::depthFirstSearch(string data){
+    short int i = 1, j = 1;
+    this->on = true;
+    this->pilha.push(i, j);
+    this->matriz[i][j] = 0;
+    print();
+    while(this->on){
+       if(this->matriz[i+1][j] == 1 || this->matriz[i+1][j] == -3 || this->matriz[i+1][j] == -1){       // BAIXO
+            while(checkNextPathDFS(i+1,j, &i, &j, data)){
+                i++;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else if(this->matriz[i+1][j+1] == 1 || this->matriz[i+1][j+1] == -3 || this->matriz[i+1][j+1] == -1){       // DIAGONAL DIREITA INFERIOR
+            while(checkNextPathDFS(i+1,j+1, &i, &j, data)){
+                i++;
+                j++;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else if(this->matriz[i][j+1] == 1 || this->matriz[i][j+1] == -3 || this->matriz[i][j+1] == -1){       // DIREITA
+            while(checkNextPathDFS(i,j+1, &i, &j, data)){
+                j++;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else if(this->matriz[i-1][j+1] == 1 || this->matriz[i-1][j+1] == -3 || this->matriz[i-1][j+1] == -1){       // DIAGONAL SUPERIOR DIREITA 
+            while(checkNextPathDFS(i-1,j+1, &i, &j, data)){
+                i--;
+                j++;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else if(this->matriz[i-1][j] == 1 || this->matriz[i-1][j] == -3 || this->matriz[i-1][j] == -1){       // CIMA
+            while(checkNextPathDFS(i-1,j, &i, &j, data)){
+                i--;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else if(this->matriz[i-1][j-1] == 1 || this->matriz[i-1][j-1] == -3 || this->matriz[i-1][j-1] == -1){       // DIAGONA SUPERIOR ESQUERDA 
+            while(checkNextPathDFS(i-1,j-1, &i, &j, data)){
+                i--;
+                j--;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else if(this->matriz[i][j-1] == 1 || this->matriz[i][j-1] == -3 || this->matriz[i][j-1] == -1){       // ESQUERDA
+            while(checkNextPathDFS(i,j-1, &i, &j, data)){
+                j--;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else if(this->matriz[i+1][j-1] == 1 || this->matriz[i+1][j-1] == -3 || this->matriz[i+1][j-1] == -1){       // DIAGONAL ESQUERDA INFERIOR
+            while(checkNextPathDFS(i+1,j-1, &i, &j, data)){
+                i++;
+                j--;
+                this->matriz[i][j] = 0;
+                this->pilha.push(i, j);
+                this->pilha.print();
+                print();
+            }
+       }else{
+        this->pilha.pop();
+        this->pilha.print();
+        this->matriz[i][j] = -4;
+        print();
+        i = this->pilha.getTopo()->getI();
+        j = this->pilha.getTopo()->getJ();
+       }
+    }
+}
+
+bool Maze::checkNextPathDFS(short int row, short int column, short int *iP, short int *jP, string data){
+    if(this->matriz[row][column] == 1){
+        return true;
+    } 
+    else if(this->matriz[row][column] == -1){
+        select(data);
+        this->matriz[row][column] = 1;
+        create(data);
+        *iP = 1;
+        *jP = 1;
+        this->pilha.clear();
+        this->pilha.push(*iP, *jP);
+        this->pilha.print();
+        this->matriz[*iP][*jP] = 0;
+        print();
+    }
+    else if(this->matriz[row][column] == -3){
+        this->on = false;
+    }
+    return false;
+}
 /******************************************************************************************** FINAL METODOS */
