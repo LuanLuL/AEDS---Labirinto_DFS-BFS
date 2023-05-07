@@ -6,17 +6,19 @@ using namespace std;
 
 class No{
     private:
-        short int value;
+        short int i, j;
         No *next;
     public:
         /************************************************** INICIO CONSTRUTORES */
         No();
-        No(short int newValue);
+        No(short int i, short int j);
         /************************************************** FINAL CONSTRUTORES */
 
         /************************************************** INICIO GETTERS AND SETTERS */
-        short int getValue();
-        void setValue(short int newValue);
+        short int getI();
+        void setI(short int newI);
+        short int getJ();
+        void setJ(short int newJ);
         No *getNext();
         void setNext(No *newNext);
         /************************************************** FINAL GETTERS AND SETTERS */

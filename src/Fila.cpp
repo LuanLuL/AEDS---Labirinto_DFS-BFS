@@ -3,7 +3,7 @@
 /************************************************** INICIO CONSTRUTORES */
 Fila::Fila(){
     this->start = NULL;
-    this->end = this->start;
+    this->end = NULL;
 }
 /************************************************** FINAL CONSTRUTORES */
 
@@ -30,15 +30,13 @@ bool Fila::isEmpty(){
     return (this->start == NULL);
 }
 
-void Fila::insert(short int newValue){
+void Fila::insert(short int newI, short int newJ){
     try{
-        No *newNo = new No(newValue);
+        No *newNo = new No(newI, newJ);
         if(newNo){
-            newNo->setValue(newValue);
-            newNo->setNext(NULL);
             if(isEmpty()){
                 this->start = newNo;
-                this->end = start;
+                this->end = newNo;
             }
             else{
                 this->end->setNext(newNo);
@@ -55,10 +53,22 @@ void Fila::insert(short int newValue){
     }
 }
 
+void Fila::remove(){
+    if(isEmpty()){
+        cout << "\n---> A lista não possui elementos!";
+    }
+    else{
+        No *aux = this->start;
+        this->start = aux->getNext();
+        delete aux;
+    }
+}
+
 void Fila::print(){
     No *aux = this->start;
+    cout << "---------- FILA ----------\n\n";
     if(isEmpty()){
-        cout << "---> A lista não possui elementos!";
+        cout << "---> A lista não possui elementos!\n";
     }
     else{
         while (aux != NULL){
@@ -66,5 +76,6 @@ void Fila::print(){
             aux = aux->getNext();
         }
     }
+    cout << "\n---------- FIM FILA ----------\n";
 }
 /******************************************************************************************** FINAL METODOS */

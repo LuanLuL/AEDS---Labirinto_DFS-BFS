@@ -10,6 +10,7 @@ using namespace std;
 class Pilha{
     private:
         No* topo;
+        No* base;
     public:
         /************************************************** INICIO CONSTRUTORES */
         Pilha();
@@ -19,13 +20,16 @@ class Pilha{
         /************************************************** INICIO GETTERS AND SETTERS */
         No *getTopo();
         void setTopo(No *newTopo);
+        No *getBase();
+        void setBase(No *newBase);
         /************************************************** FINAL GETTERS AND SETTERS */
 
         /************************************************** INICIO METODOS */
-        void push(short int valor);
+        void push(short int newI, short int newJ);
         void pop();
         bool isEmpty();
         int size();
+        void print();
         /************************************************** FINAL METODOS */
 };
 

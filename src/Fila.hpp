@@ -23,7 +23,8 @@ class Fila{
         
         /************************************************** INICIO METODOS */
         bool isEmpty();
-        void insert(short int newValue);
+        void insert(short int newI, short int newJ);
+        void remove();
         void print();
         /************************************************** FINAL METODOS */
 
