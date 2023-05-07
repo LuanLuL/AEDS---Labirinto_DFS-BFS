@@ -78,4 +78,18 @@ void Fila::print(){
     }
     cout << "\n---------- FIM FILA ----------\n";
 }
+void Fila::clear(){
+    if(isEmpty()){
+        cout << "\n---> A lista não possui elementos!";
+    }
+    else{
+        No *aux = this->start;
+       while(aux != NULL){
+            this->start = aux->getNext();
+            No* aux2 = aux;
+            aux = aux->getNext();
+            delete aux2;
+       }
+    }
+}
 /******************************************************************************************** FINAL METODOS */

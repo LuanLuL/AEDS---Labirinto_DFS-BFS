@@ -6,11 +6,16 @@
 #include <fstream>
 #include <random>
 #include "Fila.hpp"
+#include "Pilha.hpp"
 using namespace std;
 
 class Maze{
     private:
         short int **matriz, linha, coluna, tamanhoLinha, tamanhoColuna;
+        Fila fila;
+        Pilha pilha;
+        bool on;
+
     public:
         /*************************************************************** INICIO CONSTRUTORES */
         Maze();
@@ -27,16 +32,22 @@ class Maze{
         void setLinha(short int newLinha);
         short int getColuna();
         void setColuna(short int newColuna);
+        Fila getFila();
+        void setFila(Fila newFila);
+        Pilha getPilha();
+        void setPilha(Pilha newPilha);
         /*************************************************************** FINAL GETTERS AND SETTERS */
 
         /*************************************************************** INICIO METODOS */
         void addNumber(short int number);
+        void addNumberSelect(short int number);
         int start(string data);
         void makeEdge();
         void create(string data);
         void print();
         void select(string data);
-        //int breadhtFirstSearch();
+        int breadhtFirstSearch(string data);
+        int checkNextPath(short int row, short int column);
         /************************************************************** FINAL METODOS */
 };
 

@@ -19,6 +19,7 @@ class Fila{
         void setStart(No *newStart);
         No *getEnd();
         void setEnd(No *newEnd);
+
         /************************************************** FINAL GETTERS AND SETTERS */
         
         /************************************************** INICIO METODOS */
@@ -26,6 +27,7 @@ class Fila{
         void insert(short int newI, short int newJ);
         void remove();
         void print();
+        void clear();
         /************************************************** FINAL METODOS */
 
 };

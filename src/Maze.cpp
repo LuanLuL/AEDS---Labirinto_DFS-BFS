@@ -65,6 +65,22 @@ short int Maze::getColuna(){
 void Maze::setColuna(short int newColuna){
     this->coluna = newColuna;
 }
+
+Fila Maze::getFila(){
+    return this->fila;
+}
+
+void Maze::setFila(Fila newFila){
+    this->fila = newFila;
+}
+
+Pilha Maze::getPilha(){
+    return this->pilha;
+}
+
+void Maze::setPilha(Pilha newPilha){
+    this->pilha = newPilha;
+}
 /******************************************************************************************** FINAL GETTERS AND SETTERS */
 
 /******************************************************************************************** INICIO METODOS */
@@ -79,6 +95,25 @@ void Maze::addNumber(short int number){
             this->coluna = 1;
         }
         else if(this->coluna != this->tamanhoColuna-2){
+            this->coluna++;
+        }
+    }
+    catch(const char *msg){
+        cerr << "\n\nERRO...ERRO " << msg << " ...ERRO...ERRO\n\n";
+    }
+}
+
+void Maze::addNumberSelect(short int number){
+    try{
+        if(this->linha == this->tamanhoLinha && this->coluna == this->tamanhoColuna){
+			throw "../Matriz.cpp::addNumberMatriz ---> Matriz cheia";
+		}
+        this->matriz[this->linha][this->coluna] = number;
+        if(this->coluna == this->tamanhoColuna-1){
+            this->linha++;
+            this->coluna = 0;
+        }
+        else if(this->coluna != this->tamanhoColuna-1){
             this->coluna++;
         }
     }
@@ -184,8 +219,6 @@ void Maze::print(){
 }
 
 void Maze::select(string data){
-    this->linha = 0;
-    this->coluna = 0;
     fstream inFile;
         inFile.open(data.c_str());
         if(!inFile){
@@ -197,19 +230,21 @@ void Maze::select(string data){
             if(aux == 0){
                 getline(inFile, numberStr);
                 if(aux2 == 0){
-                    this->tamanhoLinha = atoi(&numberStr.at(0) + 2);
-                    this->tamanhoColuna = atoi(&numberStr.at(2) + 2);
+                    this->tamanhoLinha = atoi(&numberStr.at(0));
+                    this->tamanhoColuna = atoi(&numberStr.at(2));
                     setTamanho(this->tamanhoLinha, this->tamanhoColuna);
                     aux2 = aux2 + 1;
+                    this->linha = 0;
+                    this->coluna = 0;
                 }
                 aux = aux + 1;
             }
             else{
                 inFile >> numberStr;
                 numberInt = atoi(numberStr.c_str());
-                addNumber(numberInt);
+                addNumberSelect(numberInt);
                 limite++;
-                if(limite == ((this->tamanhoLinha-2) * (this->tamanhoColuna-2))){
+                if(limite == ((this->tamanhoLinha) * (this->tamanhoColuna))){
                     break;
                 }
             }
@@ -217,16 +252,54 @@ void Maze::select(string data){
         inFile.close();
 }
 
-
-int Maze::breadhtFirstSearch(){
+int Maze::breadhtFirstSearch(string data){
     Fila fila;
-    short int i = 0, j = 0;
+    short int i = 1, j = 1;
     No noAux;
-    
-    while(this->matriz[i][j] != -3){
-    
+    on = true;
+    this->fila.insert(i, j);
+    while(this->on){  
+        if(this->matriz[i][j] == -1){
+            select(data);
+            this->matriz[i][j] = 1;
+            create(data);
+            i = 1;
+            j = 1;
+            this->fila.clear();
+            this->fila.insert(i, j);
+            this->fila.print();
+        }
+        checkNextPath(i+1, j);          // BAIXO
+        checkNextPath(i+1, j+1);        // DIAGONAL INFERIOR DIREITA
+        checkNextPath(i, j+1);          // DIREITA
+        checkNextPath(i-1, j+1);        // DIAGONAL SUPERIOR DIREITA
+        checkNextPath(i-1, j);          // CIMA         
+        checkNextPath(i-1, j-1);        // DIAGONAL SUPERIOR ESQUERDA         
+        checkNextPath(i, j-1);          // ESQUERDA         
+        checkNextPath(i+1, j-1);        // DIAGONAL INFERIOR ESQUERDA        
+        this->fila.remove();
+        this->fila.print(); 
+        this->matriz[i][j] = 0;
+        i = this->fila.getStart()->getI();
+        j = this->fila.getStart()->getJ();
+        print();
     }
     return 0;
 }
-/******************************************************************************************** FINAL METODOS */
 
+int Maze::checkNextPath(short int row, short int column){
+    if(this->matriz[row][column] == 1){
+        this->fila.insert(row, column);
+        this->fila.print();
+        this->matriz[row][column] = -4;
+    }else if(this->matriz[row][column] == -1){
+        this->fila.insert(row, column);
+        this->fila.print();
+    }
+    else if(this->matriz[row][column] == -3){
+        this->on = false;
+    }
+    return 0;
+}
+
+/******************************************************************************************** FINAL METODOS */
