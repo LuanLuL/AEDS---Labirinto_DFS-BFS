@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <random>
+#include <tuple>
 #include "Fila.hpp"
 #include "Pilha.hpp"
 using namespace std;
@@ -50,6 +51,7 @@ class Maze{
         void checkNextPathBFS(short int row, short int column);
         bool checkNextPathDFS(short int row, short int column, short int *iP, short int *jP, string data);
         void depthFirstSearch(string data);
+        pair<int, int> randomPath(int i, int j);
         /************************************************************** FINAL METODOS */
 };
 

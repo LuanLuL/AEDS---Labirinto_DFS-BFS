@@ -266,6 +266,8 @@ void Maze::breadhtFirstSearch(string data){
             this->fila.clear();
             this->fila.insert(i, j);
             this->fila.print();
+        }else if(this->matriz[i][j] == -3){
+            this->on = false;
         }
         checkNextPathBFS(i+1, j);          // BAIXO
         checkNextPathBFS(i+1, j+1);        // DIAGONAL INFERIOR DIREITA
@@ -281,6 +283,7 @@ void Maze::breadhtFirstSearch(string data){
         i = this->fila.getStart()->getI();
         j = this->fila.getStart()->getJ();
         print();
+        
     }
 }
 
@@ -294,7 +297,8 @@ void Maze::checkNextPathBFS(short int row, short int column){
         this->fila.print();
     }
     else if(this->matriz[row][column] == -3){
-        this->on = false;
+        this->fila.insert(row, column);
+        this->fila.print();
     }
 }
 
@@ -312,15 +316,21 @@ void Maze::depthFirstSearch(string data){
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else if(this->matriz[i+1][j+1] == 1 || this->matriz[i+1][j+1] == -3 || this->matriz[i+1][j+1] == -1){       // DIAGONAL DIREITA INFERIOR
-            while(checkNextPathDFS(i+1,j+1, &i, &j, data)){
+            while(checkNextPathDFS(i+1,j+1, &i, &j, data) && this->on){
                 i++;
                 j++;
                 this->matriz[i][j] = 0;
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else if(this->matriz[i][j+1] == 1 || this->matriz[i][j+1] == -3 || this->matriz[i][j+1] == -1){       // DIREITA
             while(checkNextPathDFS(i,j+1, &i, &j, data)){
@@ -329,6 +339,9 @@ void Maze::depthFirstSearch(string data){
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else if(this->matriz[i-1][j+1] == 1 || this->matriz[i-1][j+1] == -3 || this->matriz[i-1][j+1] == -1){       // DIAGONAL SUPERIOR DIREITA 
             while(checkNextPathDFS(i-1,j+1, &i, &j, data)){
@@ -338,6 +351,9 @@ void Maze::depthFirstSearch(string data){
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else if(this->matriz[i-1][j] == 1 || this->matriz[i-1][j] == -3 || this->matriz[i-1][j] == -1){       // CIMA
             while(checkNextPathDFS(i-1,j, &i, &j, data)){
@@ -346,6 +362,9 @@ void Maze::depthFirstSearch(string data){
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else if(this->matriz[i-1][j-1] == 1 || this->matriz[i-1][j-1] == -3 || this->matriz[i-1][j-1] == -1){       // DIAGONA SUPERIOR ESQUERDA 
             while(checkNextPathDFS(i-1,j-1, &i, &j, data)){
@@ -355,6 +374,9 @@ void Maze::depthFirstSearch(string data){
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else if(this->matriz[i][j-1] == 1 || this->matriz[i][j-1] == -3 || this->matriz[i][j-1] == -1){       // ESQUERDA
             while(checkNextPathDFS(i,j-1, &i, &j, data)){
@@ -363,6 +385,9 @@ void Maze::depthFirstSearch(string data){
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else if(this->matriz[i+1][j-1] == 1 || this->matriz[i+1][j-1] == -3 || this->matriz[i+1][j-1] == -1){       // DIAGONAL ESQUERDA INFERIOR
             while(checkNextPathDFS(i+1,j-1, &i, &j, data)){
@@ -372,6 +397,9 @@ void Maze::depthFirstSearch(string data){
                 this->pilha.push(i, j);
                 this->pilha.print();
                 print();
+                if(this->matriz[i][j] == -3){
+                    break;
+                }
             }
        }else{
         this->pilha.pop();
@@ -382,6 +410,26 @@ void Maze::depthFirstSearch(string data){
         j = this->pilha.getTopo()->getJ();
        }
     }
+}
+
+pair<int, int> Maze::randomPath(int i, int j){
+    random_device rd;           
+    mt19937 rng(rd());         
+    int aux_i = i;
+    int aux_j = j;
+    uniform_int_distribution<int> dist(-1, 1); 
+
+    do
+    {
+        aux_i = dist(rng);
+        aux_j = dist(rng);
+        
+        aux_i += i;
+        aux_j += j;
+
+    }while (this->matriz[aux_i][aux_j] == -2 || (aux_i == 0 && aux_j == 0));
+        
+    return make_pair(aux_i, aux_j);
 }
 
 bool Maze::checkNextPathDFS(short int row, short int column, short int *iP, short int *jP, string data){
@@ -402,6 +450,7 @@ bool Maze::checkNextPathDFS(short int row, short int column, short int *iP, shor
     }
     else if(this->matriz[row][column] == -3){
         this->on = false;
+        return true;
     }
     return false;
 }
