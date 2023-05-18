@@ -51,7 +51,9 @@ class Maze{
         void checkNextPathBFS(short int row, short int column);
         bool checkNextPathDFS(short int row, short int column, short int *iP, short int *jP, string data);
         void depthFirstSearch(string data);
-        pair<int, int> randomPath(int i, int j);
+        void randomPath(int *i, int *j, string data);
+        void randomMaze(string data);
+        void output();
         /************************************************************** FINAL METODOS */
 };
 

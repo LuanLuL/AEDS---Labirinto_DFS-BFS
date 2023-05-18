@@ -188,7 +188,7 @@ void Maze::makeEdge(){
 
 void Maze::create(string name){
     try{
-        ofstream outFile (name.c_str()); 
+        ofstream outFile (name.c_str());
         if(!outFile){
             throw "../Maze::create(string name) ----> Não foi possível abrir o arquivo de saída";
         }
@@ -220,47 +220,48 @@ void Maze::print(){
 
 void Maze::select(string data){
     fstream inFile;
-        inFile.open(data.c_str());
-        if(!inFile){
-            throw "../Maze::select(string data) ---> Não foi possível abrir o arquivo de entrada";
-        }
-        string numberStr;
-        int aux = 0, aux2 = 0, numberInt = 0, limite = 0;
-        while (!inFile.eof()){
-            if(aux == 0){
-                getline(inFile, numberStr);
-                if(aux2 == 0){
-                    this->tamanhoLinha = atoi(&numberStr.at(0));
-                    this->tamanhoColuna = atoi(&numberStr.at(2));
-                    setTamanho(this->tamanhoLinha, this->tamanhoColuna);
-                    aux2 = aux2 + 1;
-                    this->linha = 0;
-                    this->coluna = 0;
-                }
-                aux = aux + 1;
+    inFile.open(data.c_str());
+    if(!inFile){
+        throw "../Maze::select(string data) ---> Não foi possível abrir o arquivo de entrada";
+    }
+    string numberStr;
+    int aux = 0, aux2 = 0, numberInt = 0, limite = 0;
+    while (!inFile.eof()){
+        if(aux == 0){
+            getline(inFile, numberStr);
+            if(aux2 == 0){
+                this->tamanhoLinha = atoi(&numberStr.at(0));
+                this->tamanhoColuna = atoi(&numberStr.at(2));
+                setTamanho(this->tamanhoLinha, this->tamanhoColuna);
+                aux2 = aux2 + 1;
+                this->linha = 0;
+                this->coluna = 0;
             }
-            else{
-                inFile >> numberStr;
-                numberInt = atoi(numberStr.c_str());
-                addNumberSelect(numberInt);
-                limite++;
-                if(limite == ((this->tamanhoLinha) * (this->tamanhoColuna))){
-                    break;
-                }
+            aux = aux + 1;
+        }
+        else{
+            inFile >> numberStr;
+            numberInt = atoi(numberStr.c_str());
+            addNumberSelect(numberInt);
+            limite++;
+            if(limite == ((this->tamanhoLinha) * (this->tamanhoColuna))){
+                break;
             }
         }
-        inFile.close();
+    }
+    inFile.close();
 }
 
 void Maze::breadhtFirstSearch(string data){
     short int i = 1, j = 1;
     on = true;
+    select(data);
     this->fila.insert(i, j);
+    create(data);
+
     while(this->on){  
         if(this->matriz[i][j] == -1){
-            select(data);
             this->matriz[i][j] = 1;
-            create(data);
             i = 1;
             j = 1;
             this->fila.clear();
@@ -282,23 +283,24 @@ void Maze::breadhtFirstSearch(string data){
         this->matriz[i][j] = 0;
         i = this->fila.getStart()->getI();
         j = this->fila.getStart()->getJ();
-        print();
+        //print();
         
     }
+    output();
 }
 
 void Maze::checkNextPathBFS(short int row, short int column){
     if(this->matriz[row][column] == 1){
         this->fila.insert(row, column);
-        this->fila.print();
+        //this->fila.print();
         this->matriz[row][column] = -4;
     }else if(this->matriz[row][column] == -1){
         this->fila.insert(row, column);
-        this->fila.print();
+        //this->fila.print();
     }
     else if(this->matriz[row][column] == -3){
         this->fila.insert(row, column);
-        this->fila.print();
+        //this->fila.print();
     }
 }
 
@@ -307,15 +309,15 @@ void Maze::depthFirstSearch(string data){
     this->on = true;
     this->pilha.push(i, j);
     this->matriz[i][j] = 0;
-    print();
+    //print();
     while(this->on){
        if(this->matriz[i+1][j] == 1 || this->matriz[i+1][j] == -3 || this->matriz[i+1][j] == -1){       // BAIXO
             while(checkNextPathDFS(i+1,j, &i, &j, data)){
                 i++;
                 this->matriz[i][j] = 0;
                 this->pilha.push(i, j);
-                this->pilha.print();
-                print();
+                //this->pilha.print();
+                //print();
                 if(this->matriz[i][j] == -3){
                     break;
                 }
@@ -326,8 +328,8 @@ void Maze::depthFirstSearch(string data){
                 j++;
                 this->matriz[i][j] = 0;
                 this->pilha.push(i, j);
-                this->pilha.print();
-                print();
+                //this->pilha.print();
+                //print();
                 if(this->matriz[i][j] == -3){
                     break;
                 }
@@ -337,8 +339,8 @@ void Maze::depthFirstSearch(string data){
                 j++;
                 this->matriz[i][j] = 0;
                 this->pilha.push(i, j);
-                this->pilha.print();
-                print();
+                //this->pilha.print();
+                //print();
                 if(this->matriz[i][j] == -3){
                     break;
                 }
@@ -349,8 +351,8 @@ void Maze::depthFirstSearch(string data){
                 j++;
                 this->matriz[i][j] = 0;
                 this->pilha.push(i, j);
-                this->pilha.print();
-                print();
+                //this->pilha.print();
+                //print();
                 if(this->matriz[i][j] == -3){
                     break;
                 }
@@ -412,11 +414,11 @@ void Maze::depthFirstSearch(string data){
     }
 }
 
-pair<int, int> Maze::randomPath(int i, int j){
+void Maze::randomPath(int *i, int *j, string data){
     random_device rd;           
     mt19937 rng(rd());         
-    int aux_i = i;
-    int aux_j = j;
+    int aux_i = *i;
+    int aux_j = *j;
     uniform_int_distribution<int> dist(-1, 1); 
 
     do
@@ -424,12 +426,29 @@ pair<int, int> Maze::randomPath(int i, int j){
         aux_i = dist(rng);
         aux_j = dist(rng);
         
-        aux_i += i;
-        aux_j += j;
+        aux_i += *i;
+        aux_j += *j;
 
-    }while (this->matriz[aux_i][aux_j] == -2 || (aux_i == 0 && aux_j == 0));
         
-    return make_pair(aux_i, aux_j);
+    }while ((aux_i < 0 || aux_j < 0  || aux_i >= tamanhoLinha || aux_j >= tamanhoColuna ) || (this->matriz[aux_i][aux_j] == -2) 
+    || (aux_i == (*i) && aux_j == (*j)));
+    *i = aux_i;
+    *j = aux_j;
+    if(this->matriz[*i][*j] == 1){
+        this->matriz[*i][*j] = 0;
+    }else if(this->matriz[*i][*j] == -1){
+        select(data);
+        this->matriz[*i][*j] = 1;
+        create(data);
+        *i = 1;
+        *j = 1;
+        this->matriz[*i][*j] = 0;
+    }else if(this->matriz[*i][*j] == -3){
+        this->on = false;
+        this->matriz[*i][*j] = 0;
+    }
+    // cout<< (*i)<< (*j);
+    // print();
 }
 
 bool Maze::checkNextPathDFS(short int row, short int column, short int *iP, short int *jP, string data){
@@ -454,4 +473,37 @@ bool Maze::checkNextPathDFS(short int row, short int column, short int *iP, shor
     }
     return false;
 }
+
+void Maze::randomMaze(string data){
+    int i;
+    int j;
+    i = 1;
+    j = 1;
+    this->on = true;
+    this->matriz[i][j] = 0;
+    while (this->on)
+    {
+        randomPath(&i,&j,data);
+    }
+    print();
+    output();
+}
+
+void Maze::output(){
+    ofstream arquivo("dataset/output.data");
+    if (arquivo.is_open()) {
+        arquivo << this->tamanhoLinha-2 << " " << this->tamanhoColuna-2 << endl; // Escreve o número de linhas e colunas no arquivo
+        for (int i = 1; i <= this->tamanhoLinha-2; i++){
+            for (int j = 1; j <= this->tamanhoColuna-2; j++) {
+                arquivo << "vtnc"; // Escreve cada elemento da matriz no arquivo
+            } 
+            arquivo << endl; // Pula para a próxima linha no arquivo
+        }
+        arquivo.close();
+       cout << "Matriz gravada no arquivo com sucesso." << endl;
+    } else {
+        cout << "Erro ao abrir o arquivo." << endl;
+    }
+}
+    
 /******************************************************************************************** FINAL METODOS */
