@@ -9,8 +9,8 @@ Maze::Maze(){
 }
 
 Maze::Maze(short int numeroLinha, short int numeroColuna){
-    this->tamanhoLinha = numeroLinha;
-    this->tamanhoColuna = numeroColuna;
+    this->tamanhoLinha = numeroLinha+2;
+    this->tamanhoColuna = numeroColuna+2;
     this->matriz = (short int**) calloc(this->tamanhoLinha, sizeof(short int*));
     for(int i=0;i<this->tamanhoLinha;i++){
         this->matriz[i] = (short int*) calloc(this->tamanhoColuna, sizeof(short int));
@@ -122,7 +122,7 @@ void Maze::addNumberSelect(short int number){
     }
 }
 
-int Maze::start(string data){
+int Maze::getNumberMatrix(string data){
     try{
         fstream inFile;
         inFile.open(data.c_str());
@@ -130,7 +130,27 @@ int Maze::start(string data){
             throw "../Maze.cpp::start(string data) ---> Não foi possível abrir o arquivo de entrada";
         }
         string numberStr;
-        int aux = 0, aux2 = 0, numberInt = 0, limite = 0, i = 1, numMatrizes = 0;
+        int numMatrizes = 0;
+        getline(inFile, numberStr);
+        numMatrizes = atoi(&numberStr.at(4));
+        inFile.close();
+        return numMatrizes;
+    }
+    catch(const char *msg){
+        cerr << "\n\n" << msg << "\n\n";
+        exit(0);
+    }
+}
+
+void Maze::start(string data, short int numberMatriz){
+    try{
+        fstream inFile;
+        inFile.open(data.c_str());
+        if(!inFile){
+            throw "../Maze.cpp::start(string data) ---> Não foi possível abrir o arquivo de entrada";
+        }
+        string numberStr;
+        int aux = 0, aux2 = 0, numberInt = 0, limite = 0, i = 0;
         while (!inFile.eof()){
             if(aux == 0){
                 getline(inFile, numberStr);
@@ -138,39 +158,40 @@ int Maze::start(string data){
                     this->tamanhoLinha = atoi(&numberStr.at(0)) + 2;
                     this->tamanhoColuna = atoi(&numberStr.at(2)) + 2;
                     setTamanho(this->tamanhoLinha, this->tamanhoColuna);
-                    numMatrizes = atoi(&numberStr.at(4));
                     aux2 = aux2 + 1;
                 }
                 aux = aux + 1;
             }
             else{
                 inFile >> numberStr;
-                if(numberStr == "*"){
-                    numberInt = -1;
-                }
-                else if(numberStr == "#"){
-                    numberInt = -2;
-                }
-                else if(numberStr == "?"){
-                    numberInt = -3;
+                if(i == ((this->tamanhoLinha-2) * (this->tamanhoColuna-2))*(numberMatriz-1)){
+                    if(numberStr == "*"){
+                        numberInt = -1;
+                    }
+                    else if(numberStr == "#"){
+                        numberInt = -2;
+                    }
+                    else if(numberStr == "?"){
+                        numberInt = -3;
+                    }
+                    else{
+                        numberInt = atoi(numberStr.c_str());
+                    }
+                    addNumber(numberInt);
+                    limite++;
+                    if(limite == ((this->tamanhoLinha-2) * (this->tamanhoColuna-2))){
+                        create("dataset/matriz" + to_string(numberMatriz) + ".data");
+                        this->linha = 1;
+                        this->coluna = 1;
+                        break;
+                    }
                 }
                 else{
-                    numberInt = atoi(numberStr.c_str());
-                }
-                addNumber(numberInt);
-                limite++;
-                if(limite == ((this->tamanhoLinha-2) * (this->tamanhoColuna-2))){
-                    aux = 0;
-                    limite = 0;
-                    create("dataset/matriz" + to_string(i) + ".data");
-                    this->linha = 1;
-                    this->coluna = 1;
                     i++;
                 }
             }
         }
         inFile.close();
-        return numMatrizes;
     }
     catch(const char *msg){
         cerr << "\n\n" << msg << "\n\n";
@@ -256,7 +277,6 @@ void Maze::breadhtFirstSearch(string data){
     short int i = 1, j = 1;
     on = true;
     this->fila.insert(i, j);
-    this->fila.print();
     while(this->on){  
         if(this->matriz[i][j] == -1){
             select(data);
@@ -266,7 +286,6 @@ void Maze::breadhtFirstSearch(string data){
             j = 1;
             this->fila.clear();
             this->fila.insert(i, j);
-            this->fila.print();
 
         }else if(this->matriz[i][j] == -3){
             this->on = false;
@@ -280,27 +299,21 @@ void Maze::breadhtFirstSearch(string data){
         checkNextPathBFS(i, j-1);          // ESQUERDA         
         checkNextPathBFS(i+1, j-1);        // DIAGONAL INFERIOR ESQUERDA        
         this->fila.remove();
-        this->fila.print(); 
         this->matriz[i][j] = 0;
         i = this->fila.getStart()->getI();
         j = this->fila.getStart()->getJ();
-        print();  
     }
-    output();
 }
 
 void Maze::checkNextPathBFS(short int row, short int column){
     if(this->matriz[row][column] == 1){
         this->fila.insert(row, column);
-        this->fila.print();
         this->matriz[row][column] = -4;
     }else if(this->matriz[row][column] == -1){
         this->fila.insert(row, column);
-        this->fila.print();
     }
     else if(this->matriz[row][column] == -3){
         this->fila.insert(row, column);
-        this->fila.print();
     }
 }
 
@@ -388,7 +401,6 @@ void Maze::depthFirstSearch(string data){
             }
        }else{
         this->pilha.pop();
-        this->pilha.print();
         this->matriz[i][j] = -4;
         i = this->pilha.getTopo()->getI();
         j = this->pilha.getTopo()->getJ();
@@ -408,7 +420,6 @@ bool Maze::checkNextPathDFS(short int row, short int column, short int *iP, shor
         *jP = 1;
         this->pilha.clear();
         this->pilha.push(*iP, *jP);
-        this->pilha.print();
         this->matriz[*iP][*jP] = 0;
     }
     else if(this->matriz[row][column] == -3){
@@ -425,7 +436,6 @@ void Maze::randomMaze(string data){
     while (this->on){
         randomPath(&i,&j,data);
     }
-    output();
 }
 
 void Maze::randomPath(int *i, int *j, string data){
@@ -457,20 +467,73 @@ void Maze::randomPath(int *i, int *j, string data){
     }
 }
 
-void Maze::output(){
+void Maze::createOutput(string data, bool first){
     try{
-        ofstream outFile("dataset/output.data");
-        if(!outFile){
-            throw "../Maze.cpp::output() ----> Não foi possível abrir o arquivo de saída";
-        }
-        outFile << this->tamanhoLinha-2 << " " << this->tamanhoColuna-2 << endl;
-        for(int row = 1; row < this->tamanhoLinha-2; row++){
-            for(int column = 1; column < this->tamanhoColuna-2; column++){
-                outFile << this->matriz[row][column] << "\t";
+        if(!first){
+            fstream inFile;
+            inFile.open(data.c_str());
+            if(!inFile){
+                throw "../Maze.cpp::select(string data) ---> Não foi possível abrir o arquivo de entrada";
+            }
+            string numberStr, file;
+            while (!inFile.eof()){
+                getline(inFile, numberStr);
+                file = file + "\n";
+                file = file + numberStr;
+            }
+            inFile.close();
+            file.erase(0, 1);
+            ofstream outFile (data.c_str());
+            if(!outFile){
+                throw "../Maze.cpp::createOutput(string data, bool first) ----> Não foi possível abrir o arquivo de saída";
+            }
+            outFile << file;
+            for(int row = 0; row < this->tamanhoLinha; row++){
+                for(int column = 0; column < this->tamanhoColuna; column++){
+                    if(this->matriz[row][column] == -2){
+                        outFile << "#\t";
+                    }
+                    else if(this->matriz[row][column] == -1){
+                        outFile << "*\t";
+                    }
+                    else if(this->matriz[row][column] == -4){
+                        outFile << "1\t";
+                    }
+                    else{
+                        outFile << this->matriz[row][column]  << "\t";
+                    }
+                }
+                outFile << endl;
             }
             outFile << endl;
+            outFile.close();
         }
-        outFile.close();
+        else{
+            ofstream outFile (data.c_str());
+            if(!outFile){
+                throw "../Maze.cpp::createOutput(string data, bool first) ----> Não foi possível abrir o arquivo de saída";
+            }
+            outFile << this->tamanhoLinha << " " << this->tamanhoColuna << endl;
+            for(int row = 0; row < this->tamanhoLinha; row++){
+                for(int column = 0; column < this->tamanhoColuna; column++){
+                    if(this->matriz[row][column] == -2){
+                        outFile << "#\t";
+                    }
+                    else if(this->matriz[row][column] == -1){
+                        outFile << "*\t";
+                    }
+                    else if(this->matriz[row][column] == -4){
+                        outFile << "1\t";
+                    }
+                    else{
+                        outFile << this->matriz[row][column]  << "\t";
+                    }
+                }
+                outFile << endl;
+            }
+            outFile << endl;
+            outFile.close();
+        }
     }
     catch(const char *msg){
         cerr << "\n\n" << msg << "\n\n";

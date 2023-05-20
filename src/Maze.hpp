@@ -42,7 +42,8 @@ class Maze{
         /*************************************************************** INICIO METODOS */
         void addNumber(short int number);
         void addNumberSelect(short int number);
-        int start(string data);
+        int getNumberMatrix(string data);
+        void start(string data, short int numberMatriz);
         void makeEdge();
         void create(string data);
         void print();
@@ -53,7 +54,7 @@ class Maze{
         void depthFirstSearch(string data);
         void randomPath(int *i, int *j, string data);
         void randomMaze(string data);
-        void output();
+        void createOutput(string data, bool first);
         /************************************************************** FINAL METODOS */
 };
 
