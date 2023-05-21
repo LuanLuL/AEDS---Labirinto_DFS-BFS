@@ -19,7 +19,7 @@ Com o objetivo de diminuir os casos de erros e otimizar as verificações, a mat
 Nesse sentido, é importante destacar que o tanto o caminhamento por DFS, quanto por BFS seguem a mesma orientação, a qual é no sentido anti-horário, iniciando por baixo. Observe a ordem de prioridade do caminhamento na Figura 1:
 <br>
 <p align="center">
-    <img src="img/Figura_1-Orientacao.png" />
+    <img src="img/Figura_1-Orientacao.png" width="200px" height="200px"/>
     <br><br><strong>Figura 1:</strong> Ordem de prioridade considerada pelos algoritmos
 </p>
 
@@ -46,7 +46,9 @@ Para o BFS a ideia é percorrer o caminho utilizando o conseito de busca em larg
 
 O método randômico busca encontrar o caminho de forma completamente aleatória. As ideias implementadas seguem linhas de racioncínio implementadas trabalhos passados. Logo, sua explanação pode ser visualizada em [O Labirinto Recorrente](https://github.com/teuswx/O-Labirinto-Recorrente/blob/master/README.md).
 
-## Exemplo de execução :hammer: 
+## Funcionamento :hammer: 
+
+De acordo com o proposto, um dos requisitos do algoritmo é conseguir sustentar matrizes grandes. Visando que o usuário pode inserir várias matrizes no arquivo de entrada, o ideal é que apenas uma matriz seja carregada na memoria por vez. Sendo assim, o algoritmo lê o arquivo de entrada de tempos em tempos selecionando somente uma matriz a cada leitura.
 
 <!--COLOCAR FIGURA DO output junto com os tempos de execução-->
 
@@ -64,21 +66,36 @@ Tempo de execução do caminho aleatório:
 
 <!--COLOCAR FIGURA DO TEMPO DE EXECUÇÃO-->
 
-## Perguntas ❓
-
-**1. qual foi o menor tempo de execução entre os algoritmos?**
-
-**2. Qual o custo computacional gerado por cada algoritmo?**
-
 ## Conclusão :ballot_box_with_check:
 
 Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Essa diversidade permitiu a comparação e analisasse o desempenho de cada algoritmo. Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
 
 Ao comparar os algoritmos, foi possível observar as diferenças em termos de tempo de execução e eficiência. Essa comparação ajudou a identificar as abordagens mais eficientes e compreender quais técnicas de otimização de código são mais adequadas para resolver o problema proposto. Essa experiência proporcionou uma base sólida para o aprimoramento das habilidades do grupo na programação.
 
+### Perguntas ❓
+
+**1. qual foi o menor tempo de execução entre os algoritmos?**
+
+**2. Qual o custo computacional gerado por cada algoritmo?**
+
 ## Compilação e Execução :electric_plug:
 
-O programa foi feito de acordo com a proposta e possui um arquivo Makefile que realiza todo o procedimento de compilação e execução. Para tanto, temos as seguintes diretrizes de execução:
+<p>
+    Durante o deselvovimento do algoritimo apresentado nesse repositório, foi-se utilizado de três principais tecnologias: Visual Studio Code e WSL:Ubunto.
+</p>
+<ul>
+    <li>    
+        <p>
+            O Visual Studio Code é um editor de texto multiplataforma disponibilizado pela Microsoft para o desenvolvimento de aplicações, Conhecer essa ferramenta é importante para os desenvolvedores que pretendem trabalhar em ambientes multiplataforma, por exemplo,  podendo operar o desenvolvimento em ambiente Mac e Linux, ao mesmo tempo em que mantém o projeto compatível com Windows. Segue em anexo o link para o site da plataforma — <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>.
+        </p>
+    </li>
+    <li>
+        <p>O WSL é um método para se executar o Sistema Operaciona Linux dentro do Windows de forma muito facil. Essa platoforma se torna essencial para o desenvovimento em ambiente GNU Linux, evitando tarefas como a intalação de maquinas vituais, criação de dual booting no computador pessoal e entre outras coisas. Além disso, existem diversas vantagens como rodar programas em conjunto e compartihamento de localhost. Segue em anexo um  tutorial de download do WSL2 — <a href="https://youtu.be/hd6lxt5iVsg" target="_blank">Tutorial WSL2</a>.</p>
+    </li>
+</ul>
+
+
+Por fim, visando dimuir o tempo de processamento do programa de computador é empregado o arquivo Makefile que realiza todo o procedimento de compilação e execução. Para tanto, segue anexado na Tabela 1, as diretrizes de execução no padrão make:
 | Comando                |  Função                                                                                           |                     
 | -----------------------| ------------------------------------------------------------------------------------------------- |
 |  `make clean`          | Apaga a última compilação realizada contida na pasta build                                        |
