@@ -1,6 +1,6 @@
 # Labirinto por Profundidade (DFS) e Largura (BFS)
 
-Criado em Maio de 2023, o projeto <strong>Labirinto por Profundidade (DFS) e Largura (BFS)</strong> foi desenvolvido em virtude de atender as demandas do curso de Algoritimo e Estrutura de Dados, ministrado pelo professor <a href="https://www.linkedin.com/in/michelpiressilva/?originalSubdomain=br" target="_blank">Michel Pires Da Silva</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>). Segundo as diretrizes, o projeto foi redigido por uma equipe composta de três mebros: <a href="https://github.com/LuanLuL/" target="_blank">Luan Gonçalves Santos</a>, <a href="https://github.com/teuswx" target="_blank">Mateus Herique Pereira</a> e <a href="https://github.com/MatheuAlves/" target="_blank">Matheus Henrique Alves</a>.
+Criado em Maio de 2023, o projeto <strong>Labirinto por Profundidade (DFS) e Largura (BFS)</strong> foi desenvolvido em virtude de atender as demandas do curso de Algoritimo e Estrutura de Dados, ministrado pelo professor <a href="https://github.com/mpiress" target="_blank">Michel Pires Da Silva</a> no Centro Federal de Educação Tecnológica de Minas Gerais (<a href="https://www.divinopolis.cefetmg.br/" target="_blank">CEFET-MG</a>). Segundo as diretrizes, o projeto foi redigido por uma equipe composta de três mebros: <a href="https://github.com/LuanLuL/" target="_blank">Luan Gonçalves Santos</a>, <a href="https://github.com/teuswx" target="_blank">Mateus Herique Pereira</a> e <a href="https://github.com/MatheuAlves/" target="_blank">Matheus Henrique Alves</a>.
 
 ## Objetivos 🎯
 
@@ -8,11 +8,11 @@ Este projeto, tem o propósito de contemplar um programa de computador que seja 
 
 O caminhamento deve ocorrer em matrizes de tamanho N x N (considerando testes para matrizes grandes). Nesta haverá três tipos de elementos importantes espalhados aleatoriamente: item de passagem livre (número 1 na posição da matriz), item de dano, indicado pelo carácter '*' e paredes definidas como '#'. Existe também a flag de parada que, por sua vez, estará posicionada de forma randômica na matriz em qualquer uma das posições tidas como válidas.
 
-Além disso, tem-se que como ao encontrar um posição de dano o algoritmo deve voltar no estágio inicial de execução e reiniciar do zero toda a execução. Isto é, no momentem em que o caminhamento se deperar com um '*' o algoritmo deve demarcar a posição com o item 1, neutralizando o mesmo e abrindo novas possibilidades de caminhamento/rotas até o estágio de finalização e recomeçar.
+Além disso, tem-se que como ao encontrar um posição de dano o algoritmo deve voltar no estágio inicial de execução e reiniciar do zero toda a execução. Isto é, no momento em que o caminhamento se deperar com um '*' o algoritmo deve demarcar a posição com o item 1, neutralizando o mesmo e abrindo novas possibilidades de caminhamento/rotas até o estágio de finalização e recomeçar.
 
 ## Lógica :bulb:
 
-O projeto foi desenvolvido para ler várias matrizes de um arquivo de entrada chamado 'input.data'. Cada matriz é quadrada e as informações sobre a quantidade de matrizes, número de linhas e número de colunas são fornecidas na primeira linha do arquivo.  Além disso, o projeto inclui a implementação de estruturas dinâmicas de pilha e fila nos arquivos 'pilha.hpp', 'pilha.cpp', 'fila.hpp' e 'fila.cpp'.
+O projeto foi desenvolvido para ler várias matrizes de um arquivo de entrada chamado 'input.data'. Lembrando que as informações sobre o número de linhas, número de colunas e quantidade de matrizes devem ser fornecidas na primeira linha do arquivo.  Além disso, o projeto inclui a implementação de estruturas dinâmicas de pilha e fila nos arquivos 'pilha.hpp', 'pilha.cpp', 'fila.hpp' e 'fila.cpp'.
 
 Com o objetivo de diminuir os casos de erros e otimizar as verificações, a matriz de entrada é alterada. Essa mudança consiste em cercar a matriz original por parades, possibilitando que todas as posições da matriz possam ser tratadas de forma padronizada. Feito isso, é empregado os diferentes tipos de caminhamento.
 
@@ -22,7 +22,6 @@ Nesse sentido, é importante destacar que o tanto o caminhamento por DFS, quanto
     <img src="img/Figura_1-Orientacao.png" width="200px" height="200px"/>
     <br><br><strong>Figura 1:</strong> Ordem de prioridade considerada pelos algoritmos
 </p>
-
 
 ### Busca em profundidade (DFS)
 
@@ -50,25 +49,57 @@ O método randômico busca encontrar o caminho de forma completamente aleatória
 
 De acordo com o proposto, um dos requisitos do algoritmo é conseguir sustentar matrizes grandes. Visando que o usuário pode inserir várias matrizes no arquivo de entrada, o ideal é que apenas uma matriz seja carregada na memoria por vez. Sendo assim, o algoritmo lê o arquivo de entrada de tempos em tempos selecionando somente uma matriz a cada leitura.
 
-<!--COLOCAR FIGURA DO output junto com os tempos de execução-->
+A partir disso, o caminhamento em profundidade, em largura e o randômico são, respectivamente, processados para todas as matrizes encontradas no arquivo de entrada. Como resultado, foi-se medido o tempo de execução de todos os métodos — levando em consideração a entrado do <a hreft="">input.data</a>. Segue na Tabela de
+
+<div align="center">
+        <table>
+            <thead>
+                <tr>
+                    <th><center>Função</center></th>
+                    <th colspan="5"><center>Tempos (segundos)</center></th>
+                    <th><center>Média (segundos)</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>depthFirstSearch();</code></td>
+                    <td>0.0004232</td>
+                    <td>0.0004477</td>
+                    <td>0.0016552</td>
+                    <td>0.0004056</td>
+                    <td>0.0017993</td>
+                    <td>( ± ) </td>
+                </tr>
+                <tr>
+                    <td><code>breadhtFirstSearch();</code></td>
+                    <td>0.0012844</td>
+                    <td>0.0011983</td>
+                    <td>0.000929</td>
+                    <td>0.0016357</td>
+                    <td>0.0012859</td>
+                    <td>( ± ) </td>
+                </tr>
+                <tr>
+                    <td><code>randomMaze();</code></td>
+                    <td>0.002972</td>
+                    <td>0.0076198</td>
+                    <td>0.01387</td>
+                    <td>0.0058208</td>
+                    <td>0.0466705</td>
+                    <td>( ± ) </td>
+                </tr>
+            </tbody>
+        </table>
+        <p align="center">
+            <b>Tabela 1:</b> Comandos úteis para compilar e executar o software
+        </p>
+    </div>
 
 ## Análise dos Tempos de Execução :bar_chart:
 
-Tempo de execução do caminho controlado por DFS:
-
-<!--COLOCAR FIGURA DO TEMPO DE EXECUÇÃO-->
-
-Tempo de execução do caminho controlado por BFS:
-
-<!--COLOCAR FIGURA DO TEMPO DE EXECUÇÃO-->
-
-Tempo de execução do caminho aleatório:
-
-<!--COLOCAR FIGURA DO TEMPO DE EXECUÇÃO-->
-
 ## Conclusão :ballot_box_with_check:
 
-Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Essa diversidade permitiu a comparação e analisasse o desempenho de cada algoritmo. Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
+Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Essa diversidade permitiu a comparação e analisase o desempenho de cada algoritmo. Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
 
 Ao comparar os algoritmos, foi possível observar as diferenças em termos de tempo de execução e eficiência. Essa comparação ajudou a identificar as abordagens mais eficientes e compreender quais técnicas de otimização de código são mais adequadas para resolver o problema proposto. Essa experiência proporcionou uma base sólida para o aprimoramento das habilidades do grupo na programação.
 
@@ -96,10 +127,17 @@ Ao comparar os algoritmos, foi possível observar as diferenças em termos de te
 
 
 Por fim, visando dimuir o tempo de processamento do programa de computador é empregado o arquivo Makefile que realiza todo o procedimento de compilação e execução. Para tanto, segue anexado na Tabela 1, as diretrizes de execução no padrão make:
+
+<div align="center">
+
 | Comando                |  Função                                                                                           |                     
 | -----------------------| ------------------------------------------------------------------------------------------------- |
 |  `make clean`          | Apaga a última compilação realizada contida na pasta build                                        |
 |  `make`                | Executa a compilação do programa utilizando o gcc, e o resultado vai para a pasta build           |
-|  `make run`            | Executa o programa da pasta build após a realização da compilação                                 |
+|  `make run`            | Executa o programa da pasta build após a realização da compilação                                |
+</div>
+<p align="center">
+    <strong>Tabela 2:</strong> Comandos úteis para compilar e executar o software
+</p>
 
 
