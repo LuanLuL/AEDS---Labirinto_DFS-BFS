@@ -49,7 +49,7 @@ O método randômico busca encontrar o caminho de forma completamente aleatória
 
 De acordo com o proposto, um dos requisitos do algoritmo é conseguir sustentar matrizes grandes. Visando que o usuário pode inserir várias matrizes no arquivo de entrada, o ideal é que apenas uma matriz seja carregada na memoria por vez. Sendo assim, o algoritmo lê o arquivo de entrada de tempos em tempos selecionando somente uma matriz a cada leitura.
 
-A partir disso, o caminhamento em profundidade, em largura e o randômico são, respectivamente, processados para todas as matrizes encontradas no arquivo de entrada. Como resultado, foi-se medido o tempo de execução de todos os métodos — levando em consideração a entrado do <a hreft="">input.data</a>. Segue na Tabela de
+A partir disso, o caminhamento em profundidade, em largura e o randômico são, respectivamente, processados para todas as matrizes encontradas no arquivo de entrada. Como resultado, foi-se medido o, atraves da biblioteca <a hreft=""></a> tempo de execução de todos os métodos — levando em consideração a entrado do <a hreft="">input.data</a>. Segue a Tabela 1 contendo os dados.
 
 <div align="center">
         <table>
@@ -62,52 +62,48 @@ A partir disso, o caminhamento em profundidade, em largura e o randômico são, 
             </thead>
             <tbody>
                 <tr>
-                    <td><code>depthFirstSearch();</code></td>
+                    <td><code>DFS</code></td>
                     <td>0.0004232</td>
                     <td>0.0004477</td>
                     <td>0.0016552</td>
                     <td>0.0004056</td>
                     <td>0.0017993</td>
-                    <td>( ± ) </td>
+                    <td>0.0009462</td>
                 </tr>
                 <tr>
-                    <td><code>breadhtFirstSearch();</code></td>
+                    <td><code>BFS</code></td>
                     <td>0.0012844</td>
                     <td>0.0011983</td>
                     <td>0.000929</td>
                     <td>0.0016357</td>
                     <td>0.0012859</td>
-                    <td>( ± ) </td>
+                    <td>0.00126666 </td>
                 </tr>
                 <tr>
-                    <td><code>randomMaze();</code></td>
+                    <td><code>Aleatório</code></td>
                     <td>0.002972</td>
                     <td>0.0076198</td>
                     <td>0.01387</td>
                     <td>0.0058208</td>
                     <td>0.0466705</td>
-                    <td>( ± ) </td>
+                    <td>0.01559046</td>
                 </tr>
             </tbody>
         </table>
         <p align="center">
-            <b>Tabela 1:</b> Comandos úteis para compilar e executar o software
+            <b>Tabela 1:</b> Tempo de execução dos algoritmos
         </p>
     </div>
+
+    Observou-se que a menor média de tempo entre os três métodos foi a do DFS, com o tempo de 0.0009462 segundos. Por outro lado, a maior média foi a do aleatório, com o tempo de 0.01559046 segundos.
 
 ## Análise dos Tempos de Execução :bar_chart:
 
 ## Conclusão :ballot_box_with_check:
 
-Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Essa diversidade permitiu a comparação e analisase o desempenho de cada algoritmo. Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
-
-Ao comparar os algoritmos, foi possível observar as diferenças em termos de tempo de execução e eficiência. Essa comparação ajudou a identificar as abordagens mais eficientes e compreender quais técnicas de otimização de código são mais adequadas para resolver o problema proposto. Essa experiência proporcionou uma base sólida para o aprimoramento das habilidades do grupo na programação.
-
-### Perguntas ❓
-
-**1. qual foi o menor tempo de execução entre os algoritmos?**
-
-**2. Qual o custo computacional gerado por cada algoritmo?**
+Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Nesse sentido, a diversidade permitiu a comparação e análises do desempenho de cada algoritmo. Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
+    
+Portando, ao comparar os algoritmos, foi possível observar a eficiência de cada  um dos três tipos de algoritmo. Isso possibilitou identificar as melhores abordagens, compreendendo quais técnicas de otimização de código são mais adequadas para resolver os problemas propostos. De modo igual, a experiência adquirida acrescenta uma base sólida para o aprimoramento das habilidades do grupo na programação.
 
 ## Compilação e Execução :electric_plug:
 
