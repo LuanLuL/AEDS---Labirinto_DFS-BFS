@@ -8,15 +8,15 @@ Este projeto, tem o propósito de contemplar um programa de computador que seja 
 
 O caminhamento deve ocorrer em matrizes de tamanho N x N (considerando testes para matrizes grandes). Nesta haverá três tipos de elementos importantes espalhados aleatoriamente: item de passagem livre (número 1 na posição da matriz), item de dano, indicado pelo carácter '*' e paredes definidas como '#'. Existe também a flag de parada que, por sua vez, estará posicionada de forma randômica na matriz em qualquer uma das posições tidas como válidas.
 
-Além disso, tem-se que como ao encontrar um posição de dano o algoritmo deve voltar no estágio inicial de execução e reiniciar do zero toda a execução. Isto é, no momento em que o caminhamento se deperar com um '*' o algoritmo deve demarcar a posição com o item 1, neutralizando o mesmo e abrindo novas possibilidades de caminhamento/rotas até o estágio de finalização e recomeçar.
+Além disso, ao encontrar um posição de dano o algoritmo deve voltar no estágio inicial, reiniciando toda a sua  execução. Isto é, no momento em que o caminhamento se deperar com um '*' o algoritmo deve demarcar a posição com o item 1, neutralizando o mesmo e abrindo novas possibilidades de caminhamento/rotas até o estágio de finalização e recomeçar.
 
 ## Lógica :bulb:
 
-O projeto foi desenvolvido para ler várias matrizes de um arquivo de entrada chamado 'input.data'. Lembrando que as informações sobre o número de linhas, número de colunas e quantidade de matrizes devem ser fornecidas na primeira linha do arquivo.  Além disso, o projeto inclui a implementação de estruturas dinâmicas de pilha e fila nos arquivos 'pilha.hpp', 'pilha.cpp', 'fila.hpp' e 'fila.cpp'.
+O projeto foi desenvolvido para ler várias matrizes através de um arquivo do tipo DATA chamado input. Seguindo essa perspectiva, é imprescindível que as informações sobre o número de linhas, número de colunas e quantidade de matrizes devem ser fornecidas, respectivamente, na primeira linha do arquivo — observe o padrão no '<a hreft="https://github.com/LuanLuL/AEDS---Labirinto_DFS-BFS/blob/main/dataset/input.data">input.data</a>'.  Além disso, o projeto inclui a implementação de estruturas dinâmicas como a pilha e a fila para auxiliar na gerência dos dados em memória.
 
-Com o objetivo de diminuir os casos de erros e otimizar as verificações, a matriz de entrada é alterada. Essa mudança consiste em cercar a matriz original por parades, possibilitando que todas as posições da matriz possam ser tratadas de forma padronizada. Feito isso, é empregado os diferentes tipos de caminhamento.
+Ademais, com o objetivo de diminuir os casos de erros e otimizar as verificações, o software altera a entrada durante o seu processamento. Essa mudança consiste em cercar a matriz original por parades, possibilitando que todas as posições dela sejam tratadas de forma padronizada. Feito isso, é empregado os diferentes tipos de caminhamento.
 
-Nesse sentido, é importante destacar que o tanto o caminhamento por DFS, quanto por BFS seguem a mesma orientação, a qual é no sentido anti-horário, iniciando por baixo. Observe a ordem de prioridade do caminhamento na Figura 1:
+Antes da estratégias de caminhamento serem devidamente apresentadas , é importante destacar que o tanto o caminhamento por DFS, quanto por BFS seguem a mesma orientação, a qual é no sentido anti-horário, iniciando por baixo. Observe a ordem de prioridade do caminhamento na Figura 1:
 <br>
 <p align="center">
     <img src="img/Figura_1-Orientacao.png" width="200px" height="200px"/>
@@ -25,7 +25,7 @@ Nesse sentido, é importante destacar que o tanto o caminhamento por DFS, quanto
 
 ### Busca em profundidade (DFS)
 
-A ideia principal por trás do DFS é explorar o caminho mais profundo, visitando o máximo possível em uma unica direção antes de explorar as outras. Dessa forma, a DFS explora o máximo possível em profundidade antes de retroceder. Para isso, a estrutura de dados chamada de pilha é utilizada com o intuito de controlar a ordem das posições visitadas. Veja o processo detalhadamente na Figura 1.
+A ideia principal por trás do DFS é explorar o caminho mais profundo, visitando o máximo possível em uma unica direção antes de explorar as outras. Dessa forma, o algotimo de busca em profundidade explora o máximo possível em profundidade antes de retroceder. Para isso, a estrutura de dados chamada de pilha é utilizada com o intuito de controlar a ordem das posições visitadas. Veja o processo detalhadamente na Figura 1.
 <br>
 <p align="center">
     <img src="img/Figura_2-DFS.png" />
@@ -49,7 +49,7 @@ O método randômico busca encontrar o caminho de forma completamente aleatória
 
 De acordo com o proposto, um dos requisitos do algoritmo é conseguir sustentar matrizes grandes. Visando que o usuário pode inserir várias matrizes no arquivo de entrada, o ideal é que apenas uma matriz seja carregada na memoria por vez. Sendo assim, o algoritmo lê o arquivo de entrada de tempos em tempos selecionando somente uma matriz a cada leitura.
 
-A partir disso, o caminhamento em profundidade, em largura e o randômico são, respectivamente, processados para todas as matrizes encontradas no arquivo de entrada. Como resultado, foi-se medido o, atraves da biblioteca <a hreft=""></a> tempo de execução de todos os métodos — levando em consideração a entrado do <a hreft="">input.data</a>. Segue a Tabela 1 contendo os dados.
+A partir disso, o caminhamento em profundidade, em largura e o randômico são, respectivamente, processados para todas as matrizes encontradas no arquivo de entrada. Como resultado, foi-se medido, por meio da biblioteca <a hreft="https://cplusplus.com/reference/chrono/">chrono</a>, o  tempo de execução de todos os métodos. levando em consideração a entrada do <a hreft="https://github.com/LuanLuL/AEDS---Labirinto_DFS-BFS/blob/main/dataset/input.data">input.data</a>. Segue a Tabela 1 contendo os dados.
 
 <div align="center">
         <table>
@@ -62,7 +62,7 @@ A partir disso, o caminhamento em profundidade, em largura e o randômico são, 
             </thead>
             <tbody>
                 <tr>
-                    <td><code>DFS</code></td>
+                    <td>DFS</td>
                     <td>0.0004232</td>
                     <td>0.0004477</td>
                     <td>0.0016552</td>
@@ -71,7 +71,7 @@ A partir disso, o caminhamento em profundidade, em largura e o randômico são, 
                     <td>0.0009462</td>
                 </tr>
                 <tr>
-                    <td><code>BFS</code></td>
+                    <td>BFS</td>
                     <td>0.0012844</td>
                     <td>0.0011983</td>
                     <td>0.000929</td>
@@ -80,7 +80,7 @@ A partir disso, o caminhamento em profundidade, em largura e o randômico são, 
                     <td>0.00126666 </td>
                 </tr>
                 <tr>
-                    <td><code>Aleatório</code></td>
+                    <td>Aleatório</td>
                     <td>0.002972</td>
                     <td>0.0076198</td>
                     <td>0.01387</td>
@@ -95,7 +95,7 @@ A partir disso, o caminhamento em profundidade, em largura e o randômico são, 
         </p>
     </div>
 
-    Observou-se que a menor média de tempo entre os três métodos foi a do DFS, com o tempo de 0.0009462 segundos. Por outro lado, a maior média foi a do aleatório, com o tempo de 0.01559046 segundos.
+Podemos verificar que, para essa entrada, o algoritmo que apresentou o menos custo de execução foi e DFS, com um tempo médio de 0.0009462 segundos. Por outro lado, a maior média foi a do aleatório, com o tempo de 0.01559046 segundos.
 
 ## Análise dos Tempos de Execução :bar_chart:
 

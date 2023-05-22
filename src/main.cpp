@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "Maze.hpp"
 
 using namespace std;
@@ -34,7 +35,6 @@ int main(){
         seconds = duration.count();
         std::cout << "(Aleatorio) Tempo decorrido da matriz "<< i <<": " << seconds << " segundos." << std::endl;
         lab.createOutput("dataset/output_matriz"+ to_string(i) +".data", false);
-
         remove(("dataset/matriz"+ to_string(i) +".data").c_str());
         cout << endl;
     }

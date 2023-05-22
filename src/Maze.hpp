@@ -1,9 +1,9 @@
 #ifndef __MAZE_HPP
 #define __MAZE_HPP
 
-#include <chrono>
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <fstream>
 #include <random>
 #include <tuple>

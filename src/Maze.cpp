@@ -132,7 +132,10 @@ int Maze::getNumberMatrix(string data){
         string numberStr;
         int numMatrizes = 0;
         getline(inFile, numberStr);
-        numMatrizes = atoi(&numberStr.at(4));
+        char *t = strtok(const_cast<char*>(numberStr.c_str()), " ");
+        t = strtok(NULL, " ");
+        t = strtok(NULL, " ");
+        numMatrizes = atoi(t);
         inFile.close();
         return numMatrizes;
     }
@@ -155,8 +158,10 @@ void Maze::start(string data, short int numberMatriz){
             if(aux == 0){
                 getline(inFile, numberStr);
                 if(aux2 == 0){
-                    this->tamanhoLinha = atoi(&numberStr.at(0)) + 2;
-                    this->tamanhoColuna = atoi(&numberStr.at(2)) + 2;
+                    char *t = strtok(const_cast<char*>(numberStr.c_str()), " ");
+                    this->tamanhoLinha = atoi(t) + 2;
+                    t = strtok(NULL, " ");
+                    this->tamanhoColuna = atoi(t) + 2;
                     setTamanho(this->tamanhoLinha, this->tamanhoColuna);
                     aux2 = aux2 + 1;
                 }
@@ -251,8 +256,10 @@ void Maze::select(string data){
         if(aux == 0){
             getline(inFile, numberStr);
             if(aux2 == 0){
-                this->tamanhoLinha = atoi(&numberStr.at(0));
-                this->tamanhoColuna = atoi(&numberStr.at(2));
+                char *t = strtok(const_cast<char*>(numberStr.c_str()), " ");
+                this->tamanhoLinha = atoi(t);
+                t = strtok(NULL, " ");
+                this->tamanhoColuna = atoi(t);
                 setTamanho(this->tamanhoLinha, this->tamanhoColuna);
                 aux2 = aux2 + 1;
                 this->linha = 0;
