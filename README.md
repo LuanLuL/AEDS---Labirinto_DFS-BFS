@@ -16,7 +16,7 @@ O projeto foi desenvolvido para ler várias matrizes através de um arquivo do t
 
 Ademais, com o objetivo de diminuir os casos de erros e otimizar as verificações, o software altera a entrada durante o seu processamento. Essa mudança consiste em cercar a matriz original por parades, possibilitando que todas as posições dela sejam tratadas de forma padronizada. Feito isso, é empregado os diferentes tipos de caminhamento.
 
-Antes da estratégias de caminhamento serem devidamente apresentadas , é importante destacar que o tanto o caminhamento por DFS, quanto por BFS seguem a mesma orientação, a qual é no sentido anti-horário, iniciando por baixo. Observe a ordem de prioridade do caminhamento na Figura 1:
+Antes das estratégias de caminhamento serem devidamente apresentadas , é importante destacar que o tanto o caminhamento por DFS, quanto por BFS seguem a mesma orientação, a qual é no sentido anti-horário, iniciando por baixo. Observe a ordem de prioridade do caminhamento na Figura 1:
 <br>
 <p align="center">
     <img src="img/Figura_1-Orientacao.png" width="200px" height="200px"/>
@@ -49,7 +49,7 @@ O método randômico busca encontrar o caminho de forma completamente aleatória
 
 De acordo com o proposto, um dos requisitos do algoritmo é conseguir sustentar matrizes grandes. Visando que o usuário pode inserir várias matrizes no arquivo de entrada, o ideal é que apenas uma matriz seja carregada na memoria por vez. Sendo assim, o algoritmo lê o arquivo de entrada de tempos em tempos selecionando somente uma matriz a cada leitura.
 
-A partir disso, o caminhamento em profundidade, em largura e o randômico são, respectivamente, processados para todas as matrizes encontradas no arquivo de entrada. Como resultado, foi-se medido, por meio da biblioteca <a hreft="https://cplusplus.com/reference/chrono/">chrono</a>, o  tempo de execução de todos os métodos. levando em consideração a entrada do <a hreft="https://github.com/LuanLuL/AEDS---Labirinto_DFS-BFS/blob/main/dataset/input.data">input.data</a>. Segue a Tabela 1 contendo os dados.
+A partir disso, o caminhamento em profundidade, em largura e o randômico são, respectivamente, processados para todas as matrizes encontradas no arquivo de entrada. Como resultado, foi-se medido, por meio da biblioteca <a href="https://cplusplus.com/reference/chrono/">chrono</a>, o  tempo de execução de todos os métodos. Levando em consideração a entrada do <a href="https://github.com/LuanLuL/AEDS---Labirinto_DFS-BFS/blob/main/dataset/input.data">input.data</a>, segue a Tabela 1 contendo os dados:
 
 <div align="center">
         <table>
@@ -95,15 +95,15 @@ A partir disso, o caminhamento em profundidade, em largura e o randômico são, 
         </p>
     </div>
 
-Podemos verificar que, para essa entrada, o algoritmo que apresentou o menos custo de execução foi e DFS, com um tempo médio de 0.0009462 segundos. Por outro lado, a maior média foi a do aleatório, com o tempo de 0.01559046 segundos.
+Podemos verificar que, para essa entrada, o algoritmo apresentou custou diferenciados para cada tipo de caminhamento. Dentre os resultados, o método que desmontrou o menor custo de execução foi o DFS, com um tempo médio de 0.0009462 segundos. Por outro lado, o maior custo médio foi apresentado pelo caminhamento aleatório, com o tempo de 0.01559046 segundos.
 
 ## Análise dos Tempos de Execução :bar_chart:
 
 ## Conclusão :ballot_box_with_check:
 
-Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Nesse sentido, a diversidade permitiu a comparação e análises do desempenho de cada algoritmo. Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
+Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Nesse sentido, a diversidade permitiu a comparação e análises do custo computacional de cada algoritmo . Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
     
-Portando, ao comparar os algoritmos, foi possível observar a eficiência de cada  um dos três tipos de algoritmo. Isso possibilitou identificar as melhores abordagens, compreendendo quais técnicas de otimização de código são mais adequadas para resolver os problemas propostos. De modo igual, a experiência adquirida acrescenta uma base sólida para o aprimoramento das habilidades do grupo na programação.
+Portando, ao comparar os algoritmos, foi possível observar a eficiência de cada  um dos três tipos de algoritmo. Isso possibilitou identificar as melhores abordagens, compreendendo quais técnicas de otimização de código são mais adequadas para resolver os problemas propostos. De modo igual, a experiência adquirida acrescentou uma base sólida para o aprimoramento das habilidades do grupo na programação.
 
 ## Compilação e Execução :electric_plug:
 
