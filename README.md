@@ -105,7 +105,7 @@ No mais, o algoritmo ainda gera um output para cada uma das matrizes. Com esse a
 
 Durante o desenvolvimento do algoritmo, criou-se três abordagens distintas para resolver o problema de caminhamento em matrizes. Nesse sentido, a diversidade permitiu a comparação e análises do custo computacional de cada algoritmo . Essa análise foi extremamente valiosa, pois proporcionou um aprendizado significativo sobre técnicas de otimização de código.
     
-Portando, ao comparar os algoritmos, observou-se que buscar algo por meio métodos que consideram uma lógica mais elaborada como os empregados no DFS e BFS são, de fato, melhores estratégias do que simplesmente pesquisar de forma ingênua e aleatória. Todavia, fora dos laboratórios, os problemas encontrados na realidade surgem de maneiras distintas, isto é, dependem completamente do contexto para o qual estão alocados. Dessa forma, fica a cargo do programados avaliar quais técnicas são mais adequadas para resolver os problemas descobertos. 
+Portando, ao comparar os algoritmos, observou-se que buscar algo por meio de métodos que consideram uma lógica mais elaborada como os empregados no DFS e BFS são, de fato, melhores estratégias do que simplesmente pesquisar de forma ingênua e aleatória. Todavia, fora dos laboratórios, os problemas encontrados na realidade surgem de maneiras distintas, isto é, dependem completamente do contexto para o qual estão alocados. Dessa forma, fica a cargo do programados avaliar quais técnicas são mais adequadas para resolver os problemas descobertos. 
 
 ## Compilação e Execução :electric_plug:
 
